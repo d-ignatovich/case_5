@@ -1,36 +1,48 @@
 #case_5
-# Developers:   Ignatovich D. (),
-#               Poylova E. (),
-#               Miller A. ()
+# Developers:   Ignatovich D. (40%),
+#               Poylova E. (30%),
+#               Miller A. (30%)
 
 import urllib.request
-url = 'https://www.nfl.com/players/bryce-petty/stats/'
-f = urllib.request.urlopen(url)
-s = f.read()
-text = str(s)
-part_name = text.find("nfl-c-player-header__title")
-name = text[text.find('>', part_name) + 1:text.find('</h1', part_name)]
-part_comp=text.find("passingCompletions")
-comp=text[text.find('>', part_comp) + 25:text.find('</th', part_comp)]
-comp= comp.replace(' ', '')
-comp=int(comp[:-2])
-part_att=text.find("passingAttempts")
-att=text[text.find('>', part_att) + 25:text.find('</th', part_att)]
-att = att.replace(' ', '')
-att=int(att[:-2])
-part_yds=text.find("passingYards")
-yds=text[text.find('>', part_yds) + 25:text.find('</th', part_yds)]
-yds = yds.replace(' ', '')
-yds=int(yds[:-2])
-part_td = text.find('passingTouchdowns')
-td = text[text.find('>', part_td) + 25:text.find('</th', part_td)]
-td = td.replace(' ','')
-td = int(td[:-2])
-part_int1 = text.find('passingInterceptions')
-int1 = text[text.find('>', part_int1) + 25:text.find('</th', part_int1)]
-int1 = int1.replace(' ','')
-int1 = int(int1[:-2])
-part_pr = text.find('passingPasserRating')
-pr = text[text.find('>', part_pr) + 25:text.find('</th', part_pr)]
-pr = pr.replace(' ','')
-pr = pr[:-2]
+with open('input.txt') as f_in:
+    lines = f_in.readlines()
+    for i in range(0, 21):
+        url = lines[i]
+        f = urllib.request.urlopen(url)
+        s = f.read()
+        text = str(s)
+         
+        part_name = text.find("nfl-c-player-header__title")
+        name = text[text.find('>', part_name) + 1:text.find('</h1', part_name)]
+        
+        part_comp=text.find("passingCompletions")
+        comp=text[text.find('>', part_comp) + 25:text.find('</th', part_comp)]
+        comp= comp.replace(' ', '')
+        comp=int(comp[:-2])
+        
+        part_att=text.find("passingAttempts")
+        att=text[text.find('>', part_att) + 25:text.find('</th', part_att)]
+        att = att.replace(' ', '')
+        att=int(att[:-2])
+        
+        part_yds=text.find("passingYards")
+        yds=text[text.find('>', part_yds) + 25:text.find('</th', part_yds)]
+        yds = yds.replace(' ', '')
+        yds=int(yds[:-2])
+        
+        part_td = text.find('passingTouchdowns')
+        td = text[text.find('>', part_td) + 25:text.find('</th', part_td)]
+        td = td.replace(' ','')
+        td = int(td[:-2])
+        
+        part_int1 = text.find('passingInterceptions')
+        int1 = text[text.find('>', part_int1) + 25:text.find('</th', part_int1)]
+        int1 = int1.replace(' ','')
+        int1 = int(int1[:-2])
+        
+        part_pr = text.find('passingPasserRating')
+        pr = text[text.find('>', part_pr) + 25:text.find('</th', part_pr)]
+        pr = pr.replace(' ','')
+        pr = pr[:-2]
+        
+        print('{:<20}{:<7}{:<7}{:<7}{:<7}{:<7}{:<7}'.format(name, comp, att, yds, td, int1, pr))
