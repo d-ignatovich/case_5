@@ -1,1 +1,24 @@
 #case_5
+# Developers:   Ignatovich D. (),
+#               Poylova E. (),
+#               Miller A. ()
+
+import urllib.request
+url = 'https://www.nfl.com/players/bryce-petty/stats/'
+f = urllib.request.urlopen(url)
+s = f.read()
+text = str(s)
+part_name = text.find("nfl-c-player-header__title")
+name = text[text.find('>', part_name) + 1:text.find('</h1', part_name)]
+part_comp=text.find("passingCompletions")
+comp=text[text.find('>', part_comp) + 25:text.find('</th', part_comp)]
+comp= comp.replace(' ', '')
+comp=int(comp[:-2])
+part_att=text.find("passingAttempts")
+att=text[text.find('>', part_att) + 25:text.find('</th', part_att)]
+att = att.replace(' ', '')
+att=int(att[:-2])
+part_yds=text.find("passingYards")
+yds=text[text.find('>', part_yds) + 25:text.find('</th', part_yds)]
+yds = yds.replace(' ', '')
+yds=int(yds[:-2])
